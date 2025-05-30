@@ -122,5 +122,7 @@ langSelect.addEventListener("change", () => {
   }
 });
 
-// ابدأ بلوحة المفاتيح العربية عند تحميل الصفحة
-generateKeyboard(arabicLetters);
+// تحميل لوحة المفاتيح الافتراضية عند فتح الصفحة
+window.addEventListener("DOMContentLoaded", () => {
+  generateKeyboard(arabicLetters);
+});
