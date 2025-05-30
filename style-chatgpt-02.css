@@ -1,4 +1,4 @@
-body {
+ body {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(to right, #eceff1, #cfd8dc);
   display: flex;
@@ -12,15 +12,16 @@ body {
   background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  padding: 20px;
-  max-width: 1080px;
-  width: 100%;
+  padding: 0px 20px;
+  width: 90%; /* العرض 90% من الشاشة */
+  max-width: 1200px; /* حد أقصى مناسب */
+  margin: auto; /* لتوسيط الحاوية تلقائيًا */
   text-align: center;
 }
 
 .header h1 {
   color: #f44336;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .settings {
@@ -75,15 +76,16 @@ select {
 
 .output .card {
   background: linear-gradient(#f5f7fa, #c3cfe2);
-  padding: 20px;
+  padding: 0px 20px;
   border-radius: 20px;
-  display: inline-block;
+  width: 60%; /* العرض 60% من الشاشة */
+  margin: 20px auto; /* توسيط العنصر أفقيًا مع هوامش */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .output img {
-  width: 250px;
-  height: 150px;
+  width: 600px;
+  height: 400px;
   border-radius: 15px;
   object-fit: cover;
   box-shadow: 0 3px 6px rgba(0,0,0,0.1);
@@ -99,4 +101,10 @@ select {
   color: #f44336;
   font-weight: bold;
   font-size: 36px;
+}
+/* تحسينات إضافية لضمان استجابة أفضل على الأجهزة الصغيرة (responsive) */
+@media (max-width: 768px) {
+  .output .card {
+    width: 90%; /* لجعل الكرت أكبر على الهواتف الصغيرة */
+  }
 }
