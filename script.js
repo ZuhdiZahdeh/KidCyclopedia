@@ -1,4 +1,4 @@
-const data = {
+ const data = {
   ar: {
     animals: {
       أ: { word: "أَسَدٌ", file: "lion" },
@@ -73,31 +73,34 @@ const data = {
   }
 };
 
+
 const arabicLetters = ["أ", "ب", "ت", "ث", "ج", "ح", "خ", "د", "ذ", "ر", "ز", "س", "ش", "ص", "ض", "ط", "ظ", "ع", "غ", "ف", "ق", "ك", "ل", "م", "ن", "هـ", "و", "ي"];
 const englishLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 const hebrewLetters = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת"];
+const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
 const keyboardContainer = document.getElementById("keyboard");
 const langSelect = document.getElementById("language");
 const catSelect = document.getElementById("category");
+const keyboardTypeSelect = document.getElementById("keyboard-type");
 const itemWord = document.getElementById("itemWord");
 const itemImage = document.getElementById("itemImage");
 
-function generateKeyboard(letters) {
+function generateKeyboard(keys) {
   keyboardContainer.innerHTML = "";
-  letters.forEach(letter => {
-    const key = document.createElement("div");
-    key.className = "key";
-    key.textContent = letter;
-    key.addEventListener("click", () => handleKeyPress(letter));
-    keyboardContainer.appendChild(key);
+  keys.forEach(key => {
+    const keyElement = document.createElement("div");
+    keyElement.className = "key";
+    keyElement.textContent = key;
+    keyElement.addEventListener("click", () => handleKeyPress(key));
+    keyboardContainer.appendChild(keyElement);
   });
 }
 
-function handleKeyPress(letter) {
+function handleKeyPress(key) {
   const lang = langSelect.value;
   const category = catSelect.value;
-  const entry = data[lang]?.[category]?.[letter];
+  const entry = data[lang]?.[category]?.[key];
 
   if (entry) {
     itemImage.src = `images/${category}/${entry.file}.png`;
@@ -106,23 +109,30 @@ function handleKeyPress(letter) {
     const audio = new Audio(`audio/${lang}/${entry.file}.mp3`);
     audio.play();
   } else {
-    itemWord.textContent = "لا توجد كلمة لهذا الحرف";
+    itemWord.textContent = "لا توجد كلمة لهذا المفتاح";
     itemImage.src = "";
   }
 }
 
-langSelect.addEventListener("change", () => {
-  const selectedLang = langSelect.value;
-  if (selectedLang === "ar") {
-    generateKeyboard(arabicLetters);
-  } else if (selectedLang === "en") {
-    generateKeyboard(englishLetters);
-  } else if (selectedLang === "he") {
-    generateKeyboard(hebrewLetters);
+// وظيفة جديدة لتحديث لوحة المفاتيح حسب الاختيار
+function updateKeyboard() {
+  const lang = langSelect.value;
+  const keyboardType = keyboardTypeSelect.value;
+
+  if (keyboardType === "letters") {
+    if (lang === "ar") generateKeyboard(arabicLetters);
+    else if (lang === "en") generateKeyboard(englishLetters);
+    else if (lang === "he") generateKeyboard(hebrewLetters);
+  } else if (keyboardType === "numbers") {
+    generateKeyboard(numbers);
   }
-});
+}
+
+// مراقبة التغييرات في اللغة أو نوع لوحة المفاتيح
+langSelect.addEventListener("change", updateKeyboard);
+keyboardTypeSelect.addEventListener("change", updateKeyboard);
 
 // تحميل لوحة المفاتيح الافتراضية عند فتح الصفحة
 window.addEventListener("DOMContentLoaded", () => {
-  generateKeyboard(arabicLetters);
+  updateKeyboard();
 });
