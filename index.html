@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>لعبة الأطفال التعليمية متعددة اللغات</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-chatgpt-02.css">
 </head>
 <body>
   <div class="container">
@@ -15,9 +15,9 @@
       <div class="setting-item">
         <label>اللغة:</label>
         <select id="language">
-          <option>العربية</option>
-          <option>English</option>
-          <option>עברית</option>
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+          <option value="he">עברית</option>
         </select>
       </div>
 
@@ -32,10 +32,11 @@
 
       <div class="setting-item">
         <label>لوحة المفاتيح:</label>
-        <select id="keyboard-type">
-          <option>حروف</option>
-          <option>أرقام</option>
-        </select>
+        <select id="category">
+        <option value="animals">🐯 حيوانات</option>
+        <option value="fruits">🍎 فواكه</option>
+        <option value="objects">🏀 أشياء</option>
+      </select>
       </div>
     </div>
 
@@ -51,6 +52,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script-chatgpt-05.js"></script>
 </body>
 </html>
