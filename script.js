@@ -76,6 +76,23 @@ function updateKeyboard() {
   }
 }
 
+//لضمان التحديث المباشر والآني، يمكنك استخدام ميزة Realtime Updates في Firestore:
+firebase.firestore().collection('children')
+  .orderBy('points', 'desc')
+  .limit(10)
+  .onSnapshot(snapshot => {
+    const leaderboardList = document.getElementById('leaderboardList');
+    leaderboardList.innerHTML = '';
+
+    snapshot.forEach(doc => {
+      const child = doc.data();
+      const listItem = document.createElement('li');
+      listItem.textContent = `${child.username} - ${child.points} نقطة`;
+      leaderboardList.appendChild(listItem);
+    });
+  });
+
+
 langSelect.onchange = updateKeyboard;
 keyboardTypeSelect.onchange = updateKeyboard;
 catSelect.onchange = updateKeyboard;
