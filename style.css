@@ -92,7 +92,7 @@ select {
 }
 
 .word {
-  font-size: 30px;
+  font-size: 42px;
   margin-top: 10px;
   color: #333;
 }
@@ -100,7 +100,7 @@ select {
 .highlight {
   color: #f44336;
   font-weight: bold;
-  font-size: 36px;
+  font-size: 42px;
 }
 
 /* Large rounded green border */
