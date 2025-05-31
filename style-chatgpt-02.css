@@ -57,7 +57,7 @@ select {
 }
 
 .key {
-  background-color: #ffcccc;
+  background-color: #FF7F50;
   color: #fff;
   width: 50px;
   height: 50px;
@@ -78,7 +78,7 @@ select {
   background: linear-gradient(#f5f7fa, #c3cfe2);
   padding: 0px 20px;
   border-radius: 20px;
-  width: 60%; /* العرض 60% من الشاشة */
+  width: 90%; /* العرض 60% من الشاشة */
   margin: 20px auto; /* توسيط العنصر أفقيًا مع هوامش */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -102,9 +102,66 @@ select {
   font-weight: bold;
   font-size: 36px;
 }
+
+/* Large rounded green border */
+hr.hr-green {
+  border: 10px solid green;
+  border-radius: 5px;
+}
+
+
+/* التكيف مع الهواتف */
 /* تحسينات إضافية لضمان استجابة أفضل على الأجهزة الصغيرة (responsive) */
 @media (max-width: 768px) {
   .output .card {
     width: 90%; /* لجعل الكرت أكبر على الهواتف الصغيرة */
   }
+ 
+   .container {
+       padding: 15px;
+   }
+   
+   h1 {
+       font-size: 2rem;
+   }
+   
+   .settings {
+       flex-direction: column;
+       gap: 15px;
+   }
+   
+   .keyboard {
+       grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+       gap: 12px;
+   }
+   
+   .key {
+       font-size: 24px;
+   }
+   
+   .word {
+       font-size: 36px;
+   }
+   
+   .image-container {
+       height: 150px;
+   }
 }
+
+ @media (max-width: 480px) {
+     .keyboard {
+         grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+     }
+     
+     .key {
+         font-size: 20px;
+     }
+     
+     .word {
+         font-size: 30px;
+     }
+     
+     .image-container {
+         height: 120px;
+     }
+ }
