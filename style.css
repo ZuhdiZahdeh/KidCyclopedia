@@ -1,4 +1,4 @@
- body {
+  body {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(to right, #eceff1, #cfd8dc);
   display: flex;
@@ -101,6 +101,36 @@ select {
   color: #f44336;
   font-weight: bold;
   font-size: 42px;
+}
+
+.leaderboard {
+  background: linear-gradient(to bottom, #f0f9ff, #cfe3ff);
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  margin: 30px auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.leaderboard h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.leaderboard ol {
+  padding: 0;
+  list-style-position: inside;
+  color: #444;
+  font-size: 1.1em;
+}
+
+.leaderboard li {
+  padding: 8px;
+  margin-bottom: 5px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Large rounded green border */
