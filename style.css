@@ -104,7 +104,7 @@ select {
 }
 
 /* Large rounded green border */
-.hr-green {
+hr.hr-green {
   border: 10px solid green;
   border-radius: 5px;
 }
