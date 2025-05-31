@@ -8,5 +8,7 @@ const firebaseConfig = {
   appId: "1:225712774247:android:a5c82fbbcd341b137c08c2"
 };
 
+// تهيئة Firestore
+const db = firebase.firestore();
 // تهيئة Firebase
 firebase.initializeApp(firebaseConfig);
