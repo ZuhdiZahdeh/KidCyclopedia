@@ -78,7 +78,7 @@ select {
   background: linear-gradient(#f5f7fa, #c3cfe2);
   padding: 0px 20px;
   border-radius: 20px;
-  width: 60%; /* العرض 60% من الشاشة */
+  width: 90%; /* العرض 60% من الشاشة */
   margin: 20px auto; /* توسيط العنصر أفقيًا مع هوامش */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
