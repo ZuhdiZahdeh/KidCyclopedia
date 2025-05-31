@@ -4,11 +4,24 @@
   <meta charset="UTF-8">
   <title>لعبة الأطفال التعليمية متعددة اللغات</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <h1>🌍 لعبة الأطفال التعليمية متعددة اللغات 🎮</h1>
+    </div>
+
+    <!-- نموذج تسجيل الدخول -->
+    <div class="login-container">
+      <input type="email" id="email" placeholder="البريد الإلكتروني">
+      <input type="password" id="password" placeholder="كلمة المرور">
+      <button id="loginBtn">تسجيل الدخول</button>
+      <button id="registerBtn">تسجيل حساب جديد</button>
     </div>
 
     <div class="settings">
@@ -24,32 +37,34 @@
       <div class="setting-item">
         <label>الفئة:</label>
         <select id="category">
-        <option value="animals">🐯 حيوانات</option>
-        <option value="fruits">🍎 فواكه</option>
-        <option value="objects">🏀 أشياء</option>
+          <option value="animals">🐯 حيوانات</option>
+          <option value="fruits">🍎 فواكه</option>
+          <option value="objects">🏀 أشياء</option>
         </select>
       </div>
 
       <div class="setting-item">
         <label>لوحة المفاتيح:</label>
         <select id="keyboard-type">
-            <option value="letters">حروف</option>
-            <option value="numbers">أرقام</option>
+          <option value="letters">حروف</option>
+          <option value="numbers">أرقام</option>
         </select>
       </div>
     </div>
+
     <div class="output">
       <div class="card">
-        <img id="itemImage" src="images/animals/giraffe.png" alt="صورة">
-        <div id="itemWord" class="word"><span class="highlight">ز</span>رافة</div>
+        <img id="itemImage" src="" alt="صورة">
+        <div id="itemWord" class="word">اختر حرفًا أو رقمًا</div>
       </div>
     </div>
-<hr class="hr-green">
-        <div class="keyboard" id="keyboard">
-      <!-- سيتم توليد الأزرار هنا -->
-    </div>
+
+    <hr class="hr-green">
+
+    <div class="keyboard" id="keyboard"></div>
   </div>
 
+  <!-- تضمين ملفات JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
