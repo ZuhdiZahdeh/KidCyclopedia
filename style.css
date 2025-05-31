@@ -102,9 +102,58 @@ select {
   font-weight: bold;
   font-size: 36px;
 }
+/* التكيف مع الهواتف */
 /* تحسينات إضافية لضمان استجابة أفضل على الأجهزة الصغيرة (responsive) */
 @media (max-width: 768px) {
   .output .card {
     width: 90%; /* لجعل الكرت أكبر على الهواتف الصغيرة */
   }
+ 
+   .container {
+       padding: 15px;
+   }
+   
+   h1 {
+       font-size: 2rem;
+   }
+   
+   .settings {
+       flex-direction: column;
+       gap: 15px;
+   }
+   
+   .keyboard {
+       grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+       gap: 12px;
+   }
+   
+   .key {
+       font-size: 24px;
+   }
+   
+   .word {
+       font-size: 36px;
+   }
+   
+   .image-container {
+       height: 150px;
+   }
 }
+
+ @media (max-width: 480px) {
+     .keyboard {
+         grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+     }
+     
+     .key {
+         font-size: 20px;
+     }
+     
+     .word {
+         font-size: 30px;
+     }
+     
+     .image-container {
+         height: 120px;
+     }
+ }
