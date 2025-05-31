@@ -102,6 +102,14 @@ select {
   font-weight: bold;
   font-size: 36px;
 }
+
+/* Large rounded green border */
+hr.hr1green {
+  border: 10px solid green;
+  border-radius: 5px;
+}
+
+
 /* التكيف مع الهواتف */
 /* تحسينات إضافية لضمان استجابة أفضل على الأجهزة الصغيرة (responsive) */
 @media (max-width: 768px) {
