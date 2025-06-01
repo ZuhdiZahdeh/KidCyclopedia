@@ -1,4 +1,4 @@
-// script.js
+// script.js المعدّل كاملاً
 
 let recorder, audioChunks = [];
 let encyclopediaData;
@@ -24,27 +24,49 @@ const keyboardTypeSelect = document.getElementById("keyboard-type");
 const itemWord = document.getElementById("itemWord");
 const itemImage = document.getElementById("itemImage");
 
-// Authentication: تسجيل دخول
+// تحقق من حالة تسجيل الدخول
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
     console.log("تم تسجيل الدخول UID:", user.uid);
     window.currentUserId = user.uid;
+    document.querySelector('.login-container').style.display = 'none';
+
+    db.collection('children').doc(user.uid).get().then(doc => {
+      if (doc.exists) {
+        const studentData = doc.data();
+        showWelcomeMessage(studentData.username);
+      } else {
+        console.log('لا توجد بيانات للطالب في قاعدة البيانات.');
+      }
+    });
   } else {
     window.currentUserId = null;
+    document.querySelector('.login-container').style.display = 'block';
   }
 });
 
+// وظيفة الترحيب
+function showWelcomeMessage(username) {
+  const container = document.querySelector('.container');
+  const welcomeDiv = document.createElement('div');
+  welcomeDiv.className = 'welcome-message';
+  welcomeDiv.innerHTML = `
+    <h2>👋 أهلاً بك يا ${username} في موسوعة الأطفال! 🎉</h2>
+  `;
+  container.insertBefore(welcomeDiv, container.firstChild);
+}
+
 // تسجيل طالب جديد
-document.getElementById('saveStudentBtn').onclick = function() {
+const saveStudentBtn = document.getElementById('saveStudentBtn');
+saveStudentBtn.onclick = function() {
   const username = document.getElementById('studentName').value;
   const email = document.getElementById('studentEmail').value;
   const password = document.getElementById('studentPassword').value;
   const studentNumber = document.getElementById('studentNumber').value;
-  const idNumber = document.getElementById('studentIdNumber').value;  // حقل الهوية الجديد
+  const idNumber = document.getElementById('studentIdNumber').value;
   const age = parseInt(document.getElementById('studentAge').value, 10);
   const gender = document.getElementById('studentGender').value;
 
-  // التحقق من أن رقم الهوية مكون من 9 أرقام
   if (!/^\d{9}$/.test(idNumber)) {
     alert('رقم الهوية يجب أن يكون مكونًا من 9 أرقام.');
     return;
@@ -53,12 +75,11 @@ document.getElementById('saveStudentBtn').onclick = function() {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(userCredential => {
       const uid = userCredential.user.uid;
-
       return db.collection('children').doc(uid).set({
         username,
         email,
         studentNumber,
-        idNumber,  // تخزين رقم الهوية
+        idNumber,
         age,
         gender,
         points: 0,
@@ -68,7 +89,6 @@ document.getElementById('saveStudentBtn').onclick = function() {
     .then(() => alert('تم تسجيل الطالب بنجاح!'))
     .catch(err => alert('خطأ: ' + err.message));
 };
-
 
 function generateKeyboard(keys) {
   keyboardContainer.innerHTML = "";
@@ -110,61 +130,18 @@ function updateKeyboard() {
 langSelect.onchange = updateKeyboard;
 keyboardTypeSelect.onchange = updateKeyboard;
 catSelect.onchange = updateKeyboard;
-
 window.onload = updateKeyboard;
 
 // تسجيل الصوت
-const startRecordBtn = document.getElementById('startRecord');
-const stopRecordBtn = document.getElementById('stopRecord');
-
-startRecordBtn.onclick = function() {
+startRecord.onclick = function() {
   navigator.mediaDevices.getUserMedia({ audio: true })
     .then(stream => {
       recorder = new MediaRecorder(stream);
       audioChunks = [];
       recorder.start();
       recorder.ondataavailable = e => audioChunks.push(e.data);
-
-      stopRecordBtn.disabled = false;
-      startRecordBtn.disabled = true;
+      stopRecord.disabled = false;
+      startRecord.disabled = true;
     })
     .catch(err => alert('خطأ في الميكروفون: ' + err.message));
-};
-
-stopRecordBtn.onclick = function() {
-  recorder.stop();
-  recorder.onstop = () => {
-    if (!window.currentUserId) {
-      alert('يجب تسجيل الدخول أولاً');
-      return;
-    }
-
-    const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
-    const audioRef = storage.ref('recordings/' + Date.now() + '.mp3');
-
-    audioRef.put(audioBlob)
-      .then(snapshot => snapshot.ref.getDownloadURL())
-      .then(audioUrl => {
-        const word = document.getElementById('wordToRecord').value;
-        const language = document.getElementById('recLanguage').value;
-        const category = document.getElementById('recCategory').value;
-        const keyboardType = document.getElementById('recKeyboardType').value;
-
-        return db.collection('recordings').add({
-          childId: window.currentUserId,
-          word,
-          language,
-          category,
-          keyboardType,
-          audioUrl,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-      })
-      .then(() => {
-        alert('تم رفع التسجيل بنجاح!');
-        startRecordBtn.disabled = false;
-        stopRecordBtn.disabled = true;
-      })
-      .catch(err => alert('خطأ: ' + err.message));
-  };
 };
