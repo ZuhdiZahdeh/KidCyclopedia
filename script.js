@@ -77,20 +77,29 @@ function updateKeyboard() {
 }
 
 //لضمان التحديث المباشر والآني، يمكنك استخدام ميزة Realtime Updates في Firestore:
-firebase.firestore().collection('children')
+// عنصر HTML لعرض قائمة الإنجازات
+const leaderboardList = document.getElementById('leaderboardList');
+
+// استدعاء البيانات من Firestore وعرضها بشكل لحظي
+db.collection('children')
   .orderBy('points', 'desc')
   .limit(10)
   .onSnapshot(snapshot => {
-    const leaderboardList = document.getElementById('leaderboardList');
     leaderboardList.innerHTML = '';
 
     snapshot.forEach(doc => {
       const child = doc.data();
       const listItem = document.createElement('li');
-      listItem.textContent = `${child.username} - ${child.points} نقطة`;
+      listItem.textContent = `${child.username}: ${child.points} نقطة`;
       leaderboardList.appendChild(listItem);
     });
+  }, err => {
+    console.error('خطأ في جلب البيانات:', err);
   });
+
+
+
+
 
 
 langSelect.onchange = updateKeyboard;
