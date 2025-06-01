@@ -7,70 +7,107 @@
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
-
-<!-- Firebase Firestore SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
-
-<!-- ملف تهيئة Firebase -->
-<script src="firebase-config.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-storage-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>🌍 لعبة الأطفال التعليمية متعددة اللغات 🎮</h1>
-    </div>
-
-    <!-- نموذج تسجيل الدخول -->
-    <div class="login-container">
-      <input type="email" id="email" placeholder="البريد الإلكتروني">
-      <input type="password" id="password" placeholder="كلمة المرور">
-      <button id="loginBtn">تسجيل الدخول</button>
-      <button id="registerBtn">تسجيل حساب جديد</button>
-    </div>
-
-    <div class="settings">
-      <div class="setting-item">
-        <label>اللغة:</label>
-        <select id="language">
-          <option value="ar">العربية</option>
-          <option value="en">English</option>
-          <option value="he">עברית</option>
-        </select>
-      </div>
-
-      <div class="setting-item">
-        <label>الفئة:</label>
-        <select id="category">
-          <option value="animals">🐯 حيوانات</option>
-          <option value="fruits">🍎 فواكه</option>
-          <option value="objects">🏀 أشياء</option>
-        </select>
-      </div>
-
-      <div class="setting-item">
-        <label>لوحة المفاتيح:</label>
-        <select id="keyboard-type">
-          <option value="letters">حروف</option>
-          <option value="numbers">أرقام</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="output">
-      <div class="card">
-        <img id="itemImage" src="" alt="صورة">
-        <div id="itemWord" class="word">اختر حرفًا أو رقمًا</div>
-      </div>
-    </div>
-
-    <hr class="hr-green">
-
-    <div class="keyboard" id="keyboard"></div>
+<div class="container">
+  <div class="header">
+    <h1>🌍 لعبة الأطفال التعليمية متعددة اللغات 🎮</h1>
   </div>
 
-  <!-- تضمين ملف JavaScript الذي يحتوي كود Firestore -->
-  <script src="script.js"></script>
+  <!-- نموذج تسجيل دخول الطالب -->
+  <div class="login-container">
+    <input type="email" id="email" placeholder="البريد الإلكتروني">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    <button id="loginBtn">تسجيل الدخول</button>
+    <button id="registerBtn">تسجيل حساب جديد</button>
+  </div>
+
+  <!-- نموذج تسجيل بيانات الطالب -->
+  <div class="student-form">
+    <h2>👩‍🎓 تسجيل طالب جديد 👨‍🎓</h2>
+    <input type="text" id="studentName" placeholder="اسم الطالب">
+    <input type="email" id="studentEmail" placeholder="البريد الإلكتروني">
+    <input type="password" id="studentPassword" placeholder="كلمة المرور">
+    <input type="text" id="studentNumber" placeholder="رقم الطالب الفريد">
+    <input type="number" id="studentAge" placeholder="العمر">
+    <select id="studentGender">
+      <option value="male">ذكر</option>
+      <option value="female">أنثى</option>
+    </select>
+    <button id="saveStudentBtn">حفظ بيانات الطالب</button>
+  </div>
+
+  <!-- إعدادات اللعبة -->
+  <div class="settings">
+    <div class="setting-item">
+      <label>اللغة:</label>
+      <select id="language">
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+        <option value="he">עברית</option>
+      </select>
+    </div>
+
+    <div class="setting-item">
+      <label>الفئة:</label>
+      <select id="category">
+        <option value="animals">🐯 حيوانات</option>
+        <option value="fruits">🍎 فواكه</option>
+        <option value="objects">🏀 أشياء</option>
+      </select>
+    </div>
+
+    <div class="setting-item">
+      <label>لوحة المفاتيح:</label>
+      <select id="keyboard-type">
+        <option value="letters">حروف</option>
+        <option value="numbers">أرقام</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="output">
+    <div class="card">
+      <img id="itemImage" src="" alt="صورة">
+      <div id="itemWord" class="word">اختر حرفًا أو رقمًا</div>
+    </div>
+  </div>
+
+  <div class="keyboard" id="keyboard"></div>
+
+  <!-- Leaderboard -->
+  <div class="leaderboard">
+    <h2>🏆 أفضل 10 أطفال 🏆</h2>
+    <ol id="leaderboardList"></ol>
+  </div>
+
+  <!-- نموذج تسجيل الصوت -->
+  <div class="audio-record">
+    <h2>🎤 تسجيل صوت الطالب 🎤</h2>
+    <select id="recLanguage">
+      <option value="ar">العربية</option>
+      <option value="en">English</option>
+      <option value="he">עברית</option>
+    </select>
+    <select id="recCategory">
+      <option value="fruits">🍎 فواكه</option>
+      <option value="animals">🐯 حيوانات</option>
+      <option value="objects">🏀 أشياء</option>
+    </select>
+    <select id="recKeyboardType">
+      <option value="letters">حروف</option>
+      <option value="numbers">أرقام</option>
+    </select>
+    <input type="text" id="wordToRecord" placeholder="الكلمة المراد تسجيلها">
+    <button id="startRecord">ابدأ التسجيل 🎙️</button>
+    <button id="stopRecord" disabled>أوقف التسجيل ⏹️</button>
+  </div>
+
+</div>
+<script src="script.js"></script>
 </body>
 </html>
