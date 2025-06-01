@@ -35,14 +35,20 @@ firebase.auth().onAuthStateChanged(user => {
 });
 
 // تسجيل طالب جديد
-const saveStudentBtn = document.getElementById('saveStudentBtn');
-saveStudentBtn.onclick = function() {
+document.getElementById('saveStudentBtn').onclick = function() {
   const username = document.getElementById('studentName').value;
   const email = document.getElementById('studentEmail').value;
   const password = document.getElementById('studentPassword').value;
   const studentNumber = document.getElementById('studentNumber').value;
+  const idNumber = document.getElementById('studentIdNumber').value;  // حقل الهوية الجديد
   const age = parseInt(document.getElementById('studentAge').value, 10);
   const gender = document.getElementById('studentGender').value;
+
+  // التحقق من أن رقم الهوية مكون من 9 أرقام
+  if (!/^\d{9}$/.test(idNumber)) {
+    alert('رقم الهوية يجب أن يكون مكونًا من 9 أرقام.');
+    return;
+  }
 
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(userCredential => {
@@ -52,6 +58,7 @@ saveStudentBtn.onclick = function() {
         username,
         email,
         studentNumber,
+        idNumber,  // تخزين رقم الهوية
         age,
         gender,
         points: 0,
@@ -61,6 +68,7 @@ saveStudentBtn.onclick = function() {
     .then(() => alert('تم تسجيل الطالب بنجاح!'))
     .catch(err => alert('خطأ: ' + err.message));
 };
+
 
 function generateKeyboard(keys) {
   keyboardContainer.innerHTML = "";
