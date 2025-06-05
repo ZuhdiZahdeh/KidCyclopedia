@@ -1,0 +1,18 @@
+/* الملف footer.css (تنسيق تذييل الصفحة) */
+
+footer {
+  background-color: #34495e;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  border-top: 4px solid #2980b9;
+  border-radius: 5px;
+  margin-top: 20px;
+  box-shadow: 0 -3px 6px rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+footer p {
+  margin: 0;
+}
+ 

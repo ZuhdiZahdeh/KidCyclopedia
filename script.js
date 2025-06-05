@@ -1,147 +1,88 @@
-// script.js المعدّل كاملاً
+// script.js
+// from : firebase-config.js
+const firebaseConfig = {
+  apiKey: "AIzaSyATXdsB_HxP3xY60qsZ6kAydC9zdQGDTaU",
+  authDomain: "encyclopedialphabet.firebaseapp.com",
+  projectId: "encyclopedialphabet",
+  storageBucket: "encyclopedialphabet.appspot.com",
+  messagingSenderId: "225712774247",
+  appId: "1:225712774247:android:a5c82fbbcd341b137c08c2"
+};
 
-let recorder, audioChunks = [];
-let encyclopediaData;
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-// تحميل ملف JSON
-fetch('encyclopedia_db.json')
-  .then(response => response.json())
-  .then(jsonData => {
-    encyclopediaData = jsonData;
-    updateKeyboard();
-  })
-  .catch(error => console.error('خطأ في تحميل ملف JSON:', error));
+function login() {
+  const email = prompt("أدخل بريدك الإلكتروني:");
+  const password = prompt("أدخل كلمة المرور:");
 
-const arabicLetters = ["أ", "ب", "ت", "ث", "ج", "ح", "خ", "د", "ذ", "ر", "ز", "س", "ش", "ص", "ض", "ط", "ظ", "ع", "غ", "ف", "ق", "ك", "ل", "م", "ن", "هـ", "و", "ي"];
-const englishLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-const hebrewLetters = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת"];
-const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(() => alert('تم تسجيل الدخول بنجاح!'))
+    .catch(err => alert('خطأ في تسجيل الدخول: ' + err.message));
+}
 
-const keyboardContainer = document.getElementById("keyboard");
-const langSelect = document.getElementById("language");
-const catSelect = document.getElementById("category");
-const keyboardTypeSelect = document.getElementById("keyboard-type");
-const itemWord = document.getElementById("itemWord");
-const itemImage = document.getElementById("itemImage");
+function logout() {
+  firebase.auth().signOut()
+    .then(() => alert('تم تسجيل الخروج بنجاح!'))
+    .catch(err => alert('خطأ في تسجيل الخروج: ' + err.message));
+}
 
-// تحقق من حالة تسجيل الدخول
+function loadContent(page) {
+  fetch(page)
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('main-content').innerHTML = html;
+      const script = document.createElement('script');
+      script.src = page.replace('.html', '.js');
+      document.body.appendChild(script);
+    })
+    .catch(err => console.error('خطأ في تحميل الصفحة:', err));
+}
+
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
-    console.log("تم تسجيل الدخول UID:", user.uid);
-    window.currentUserId = user.uid;
-    document.querySelector('.login-container').style.display = 'none';
-
-    db.collection('children').doc(user.uid).get().then(doc => {
-      if (doc.exists) {
-        const studentData = doc.data();
-        showWelcomeMessage(studentData.username);
-      } else {
-        console.log('لا توجد بيانات للطالب في قاعدة البيانات.');
-      }
-    });
-  } else {
-    window.currentUserId = null;
-    document.querySelector('.login-container').style.display = 'block';
+    loadViewedWords(user.uid);
+    loadLeaderboard();
   }
 });
 
-// وظيفة الترحيب
-function showWelcomeMessage(username) {
-  const container = document.querySelector('.container');
-  const welcomeDiv = document.createElement('div');
-  welcomeDiv.className = 'welcome-message';
-  welcomeDiv.innerHTML = `
-    <h2>👋 أهلاً بك يا ${username} في موسوعة الأطفال! 🎉</h2>
-  `;
-  container.insertBefore(welcomeDiv, container.firstChild);
-}
-
-// تسجيل طالب جديد
-const saveStudentBtn = document.getElementById('saveStudentBtn');
-saveStudentBtn.onclick = function() {
-  const username = document.getElementById('studentName').value;
-  const email = document.getElementById('studentEmail').value;
-  const password = document.getElementById('studentPassword').value;
-  const studentNumber = document.getElementById('studentNumber').value;
-  const idNumber = document.getElementById('studentIdNumber').value;
-  const age = parseInt(document.getElementById('studentAge').value, 10);
-  const gender = document.getElementById('studentGender').value;
-
-  if (!/^\d{9}$/.test(idNumber)) {
-    alert('رقم الهوية يجب أن يكون مكونًا من 9 أرقام.');
-    return;
-  }
-
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(userCredential => {
-      const uid = userCredential.user.uid;
-      return db.collection('children').doc(uid).set({
-        username,
-        email,
-        studentNumber,
-        idNumber,
-        age,
-        gender,
-        points: 0,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+function loadViewedWords(userId) {
+  db.collection('children').doc(userId).collection('viewedWords')
+    .orderBy('viewedAt', 'desc').limit(10)
+    .onSnapshot(snapshot => {
+      const list = document.getElementById('viewedWordsList');
+      list.innerHTML = '';
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement('li');
+        li.textContent = `${data.word} (${data.category}) [${data.language}]`;
+        list.appendChild(li);
       });
-    })
-    .then(() => alert('تم تسجيل الطالب بنجاح!'))
-    .catch(err => alert('خطأ: ' + err.message));
-};
+    });
+}
 
-function generateKeyboard(keys) {
-  keyboardContainer.innerHTML = "";
-  keys.forEach(key => {
-    const keyElement = document.createElement("div");
-    keyElement.className = "key";
-    keyElement.textContent = key;
-    keyElement.onclick = () => handleKeyPress(key);
-    keyboardContainer.appendChild(keyElement);
+function loadLeaderboard() {
+  db.collection('children').orderBy('points', 'desc').limit(5)
+    .get().then(snapshot => {
+      const list = document.getElementById('leaderboard');
+      list.innerHTML = '';
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement('li');
+        li.textContent = `${data.username} (${data.points})`;
+        list.appendChild(li);
+      });
+    });
+}
+ 
+// اختبار الاتصال مع Firestore
+db.collection("words").get()
+  .then(snapshot => {
+    console.log("Firestore connection successful. Number of documents:", snapshot.size);
+    snapshot.forEach(doc => {
+      console.log(doc.id, " => ", doc.data());
+    });
+  })
+  .catch(error => {
+    console.error("Error connecting to Firestore:", error);
   });
-}
-
-function handleKeyPress(key) {
-  const lang = langSelect.value;
-  const category = catSelect.value;
-  const entryName = encyclopediaData[lang][category][key];
-
-  if (entryName) {
-    itemWord.textContent = entryName;
-    const fileName = entryName.replace(/\s+/g, '_').toLowerCase();
-    itemImage.src = `images/${category}/${fileName}.png`;
-    new Audio(`audio/${lang}/${fileName}.mp3`).play();
-  } else {
-    itemWord.textContent = "لا توجد بيانات لهذا المفتاح";
-    itemImage.src = "";
-  }
-}
-
-function updateKeyboard() {
-  const lang = langSelect.value;
-  const keyboardType = keyboardTypeSelect.value;
-  if (keyboardType === "letters") {
-    generateKeyboard(lang === "ar" ? arabicLetters : lang === "en" ? englishLetters : hebrewLetters);
-  } else {
-    generateKeyboard(numbers);
-  }
-}
-
-langSelect.onchange = updateKeyboard;
-keyboardTypeSelect.onchange = updateKeyboard;
-catSelect.onchange = updateKeyboard;
-window.onload = updateKeyboard;
-
-// تسجيل الصوت
-startRecord.onclick = function() {
-  navigator.mediaDevices.getUserMedia({ audio: true })
-    .then(stream => {
-      recorder = new MediaRecorder(stream);
-      audioChunks = [];
-      recorder.start();
-      recorder.ondataavailable = e => audioChunks.push(e.data);
-      stopRecord.disabled = false;
-      startRecord.disabled = true;
-    })
-    .catch(err => alert('خطأ في الميكروفون: ' + err.message));
-};

@@ -1,0 +1,47 @@
+<!-- leaderboard.html (أفضل الطلاب) -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>أفضل الطلاب | موسوعة الأطفال</title>
+  <link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="forms.css">
+<link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+  <header>
+    <button class="menu-btn">☰</button>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="register.html">تسجيل طالب</a></li>
+        <li><a href="record.html">تسجيل الصوت</a></li>
+        <li><a href="content.html">المحتوى</a></li>
+        <li><a href="leaderboard.html">أفضل الطلاب</a></li>
+      </ul>
+    </nav>
+    <h1>🏆 أفضل 10 طلاب 🏅</h1>
+  </header>
+
+  <main class="container">
+    <section class="leaderboard">
+      <h2>قائمة أفضل 10 طلاب حسب النقاط</h2>
+      <ol id="leaderboardList">
+        <!-- سيتم تعبئة هذه القائمة تلقائياً من قاعدة البيانات -->
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>جميع الحقوق محفوظة © موسوعة الأطفال 2025</p>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
+
+  <script src="firebase-config.js"></script>
+  <script src="leaderboard.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

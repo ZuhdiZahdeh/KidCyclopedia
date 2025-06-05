@@ -1,9 +1,10 @@
-/* style.css */
-
+ /*تحديث ملف CSS (main.css) بشكل متوافق مع HTML أعلاه: */
+* {
+  font-family: 'Amiri Quran', serif;
+  box-sizing: border-box;
+}
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
   background: #f2f2f2;
 }
 
@@ -11,13 +12,14 @@ body {
   display: grid;
   grid-template-areas:
     "header header header"
-    "sidebar-left content sidebar-right"
+    "left content right"
     "footer footer footer";
   grid-template-columns: 200px 1fr 200px;
   gap: 15px;
-  padding: 20px;
+  padding: 10px;
 }
 
+/* Header styles */
 .header {
   grid-area: header;
   background: #8e44ad;
@@ -36,8 +38,9 @@ body {
   font-weight: bold;
 }
 
+/* Left sidebar styles */
 .sidebar-left {
-  grid-area: sidebar-left;
+  grid-area: left;
   background: #3498db;
   padding: 15px;
   border-radius: 8px;
@@ -73,7 +76,8 @@ body {
   margin-bottom: 5px;
 }
 
-.content {
+/* Main content styles */
+.content-area {
   grid-area: content;
   background: #ecf0f1;
   padding: 15px;
@@ -81,62 +85,30 @@ body {
   text-align: center;
 }
 
-.sidebar-right {
-  grid-area: sidebar-right;
-  background: #1abc9c;
-  padding: 15px;
-  border-radius: 8px;
-  overflow-y: auto;
-  max-height: 400px;
-}
-
-.sidebar-right h3 {
-  text-align: center;
-  color: #34495e;
-}
-
-#viewedWordsList {
-  list-style: none;
-  padding: 0;
-}
-
-#viewedWordsList li {
+.card {
   background: #fff;
-  padding: 8px;
-  border-radius: 4px;
-  margin-bottom: 5px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  font-weight: bold;
-  text-align: center;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
-.footer {
-  grid-area: footer;
-  background: #34495e;
-  color: #fff;
-  text-align: center;
-  padding: 10px;
-  border-radius: 4px;
+.card img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+.word {
+  font-size: 24px;
+  margin-top: 10px;
 }
 
 .highlight {
   color: #e74c3c;
-  font-weight: bold;
-  font-size: 30px;
-}
-
-.points-container {
-  background: #f39c12;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-  width: fit-content;
 }
 
 .keyboard {
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -151,10 +123,52 @@ body {
   cursor: pointer;
 }
 
-.card img {
-  width: 100%;
-  max-width: 400px;
+/* Right sidebar styles */
+.sidebar-right {
+  grid-area: right;
+  background: #1abc9c;
+  padding: 15px;
   border-radius: 8px;
+}
+
+.accordion button {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 8px;
+  cursor: pointer;
+  border: none;
+  background: #e74c3c;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.voice-selector {
+  background: #16a085;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.voice-selector ul {
+  list-style: none;
+  padding: 0;
+}
+
+.voice-selector ul li {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+/* Footer styles */
+.footer {
+  grid-area: footer;
+  background: #34495e;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 /* Responsive adjustments */
@@ -162,11 +176,10 @@ body {
   .container {
     grid-template-areas:
       "header"
-      "sidebar-left"
+      "left"
       "content"
-      "sidebar-right"
+      "right"
       "footer";
     grid-template-columns: 1fr;
   }
 }
- 
