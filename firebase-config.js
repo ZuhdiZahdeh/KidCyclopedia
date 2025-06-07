@@ -9,8 +9,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// تهيئة Firebase يجب أن تتم أولاً قبل استخدام الخدمات الأخرى
 firebase.initializeApp(firebaseConfig);
-
+// تهيئة Firestore بعد تهيئة التطبيق
 // تعريف قواعد البيانات والتخزين بوضوح
 const db = firebase.firestore();
 const storage = firebase.storage();
