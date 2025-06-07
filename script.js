@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (logoutBtn) logoutBtn.addEventListener('click', logout);
 });
 
-
 function loadContent(page) {
   fetch(page)
     .then(response => response.text())
@@ -55,6 +54,11 @@ function loadContent(page) {
       document.getElementById('main-content').innerHTML = html;
       const script = document.createElement('script');
       script.src = page.replace('.html', '.js');
+      script.onload = () => {
+        if (page === 'content.html') {
+          generateKeyboard(document.getElementById('language').value);
+        }
+      };
       document.body.appendChild(script);
     })
     .catch(err => console.error('خطأ في تحميل الصفحة:', err));
