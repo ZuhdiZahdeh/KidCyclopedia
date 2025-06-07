@@ -33,7 +33,6 @@ function handleKeyPress(letter) {
     if (doc.exists) {
       const words = doc.data()[category];
       const images = doc.data().images && doc.data().images[category];
-      
       const wordData = words[letter];
 
       if (wordData) {
@@ -45,7 +44,7 @@ function handleKeyPress(letter) {
         document.getElementById('itemImage').src = `images/${category}/${imageFile}.png`;
 
         // رابط الصوت من مستودع GitHub
-        const audioUrl = `https://raw.githubusercontent.com/ZuhdiZahdeh/KidCyclopedia/main/audio/${lang}/${category}/${imageFile}.mp3`;
+        const audioUrl = `audio/${lang}/${category}/${imageFile}.mp3`;
         const audio = new Audio(audioUrl);
         audio.play();
 
