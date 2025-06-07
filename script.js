@@ -55,8 +55,12 @@ function loadContent(page) {
       const script = document.createElement('script');
       script.src = page.replace('.html', '.js');
       script.onload = () => {
-        if (page === 'content.html') {
-          generateKeyboard(document.getElementById('language').value);
+        const languageSelect = document.getElementById('language');
+        if(languageSelect) {
+          generateKeyboard(languageSelect.value); // توليد الأزرار مباشرة
+          languageSelect.addEventListener('change', (e) => {
+            generateKeyboard(e.target.value);
+          });
         }
       };
       document.body.appendChild(script);
