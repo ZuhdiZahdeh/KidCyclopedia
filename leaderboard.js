@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const leaderboardList = document.getElementById('leaderboardList');
+  if (!leaderboardList) return;
 
   db.collection('children')
     .orderBy('points', 'desc')

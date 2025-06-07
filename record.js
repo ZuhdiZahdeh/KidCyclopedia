@@ -2,7 +2,8 @@
 
 let recorder, audioChunks = [];
 
-document.getElementById('startRecord').onclick = function() {
+const startBtn = document.getElementById('startRecord');
+if (startBtn) startBtn.onclick = function() {
   navigator.mediaDevices.getUserMedia({ audio: true })
     .then(stream => {
       recorder = new MediaRecorder(stream);
@@ -16,7 +17,8 @@ document.getElementById('startRecord').onclick = function() {
     .catch(err => alert('خطأ في الوصول للميكروفون: ' + err.message));
 };
 
-document.getElementById('stopRecord').onclick = function() {
+const stopBtn = document.getElementById('stopRecord');
+if (stopBtn) stopBtn.onclick = function() {
   recorder.stop();
   recorder.onstop = () => {
     const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
@@ -48,4 +50,5 @@ document.getElementById('stopRecord').onclick = function() {
       .catch(err => alert('خطأ في رفع التسجيل: ' + err.message));
   };
 };
+
  

@@ -16,6 +16,8 @@ body {
   grid-template-columns: 200px 1fr 200px;
   gap: 15px;
   padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .header {
@@ -53,6 +55,11 @@ body {
   background: #fff;
   border-radius: 4px;
   font-weight: bold;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
 
 .leaderboard {

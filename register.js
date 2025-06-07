@@ -1,6 +1,7 @@
 // الملف register.js (تسجيل الطالب مع التحقق من البيانات)
 
-document.getElementById('saveStudentBtn').onclick = function() {
+const saveBtn = document.getElementById('saveStudentBtn');
+if (saveBtn) saveBtn.onclick = function() {
   const username = document.getElementById('studentName').value.trim();
   const email = document.getElementById('studentEmail').value.trim();
   const password = document.getElementById('studentPassword').value;
@@ -46,4 +47,5 @@ document.getElementById('saveStudentBtn').onclick = function() {
     })
     .catch(err => alert('خطأ في التسجيل: ' + err.message));
 };
+
  

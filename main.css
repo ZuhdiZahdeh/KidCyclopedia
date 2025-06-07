@@ -17,6 +17,8 @@ body {
   grid-template-columns: 200px 1fr 200px;
   gap: 15px;
   padding: 10px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 /* Header styles */

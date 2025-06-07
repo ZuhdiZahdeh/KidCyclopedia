@@ -1,8 +1,11 @@
-document.querySelectorAll('.key').forEach(key => {
-  key.addEventListener('click', () => {
-    handleKeyPress(key.textContent);
+const keyboard = document.getElementById('keyboard');
+if (keyboard) {
+  keyboard.querySelectorAll('.key').forEach(key => {
+    key.addEventListener('click', () => {
+      handleKeyPress(key.textContent);
+    });
   });
-});
+}
 
 function handleKeyPress(letter) {
   const lang = document.getElementById('language').value;

@@ -3,6 +3,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>موسوعة الأطفال التعليمية</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -11,15 +12,15 @@
     <header class="header">
       <nav class="top-nav">
         <a href="#">الرئيسية</a>
-        <a href="#" onclick="loadContent('content.html')">المحتوى</a>
-        <a href="#" onclick="loadContent('register.html')">تسجيل جديد</a>
+        <a href="#" id="contentLink">المحتوى</a>
+        <a href="#" id="registerLink">تسجيل جديد</a>
       </nav>
       <h1>🌍 موسوعة الأطفال التعليمية 🎮</h1>
     </header>
 
     <aside class="sidebar-left">
-      <button onclick="login()">تسجيل الدخول</button>
-      <button onclick="logout()">تسجيل الخروج</button>
+      <button id="loginBtn">تسجيل الدخول</button>
+      <button id="logoutBtn">تسجيل الخروج</button>
       <div class="leaderboard">
         <h3>قائمة الأفضل</h3>
         <ul id="leaderboard"></ul>
@@ -41,10 +42,10 @@
     </footer>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
-  <script src="script.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
+  <script defer src="script.js"></script>
 </body>
 </html>
  

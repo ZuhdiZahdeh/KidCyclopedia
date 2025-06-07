@@ -22,10 +22,31 @@ function login() {
 }
 
 function logout() {
-  firebase.auth().signOut()
+firebase.auth().signOut()
     .then(() => alert('تم تسجيل الخروج بنجاح!'))
     .catch(err => alert('خطأ في تسجيل الخروج: ' + err.message));
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const contentLink = document.getElementById('contentLink');
+  const registerLink = document.getElementById('registerLink');
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  if (contentLink) contentLink.addEventListener('click', e => {
+    e.preventDefault();
+    loadContent('content.html');
+  });
+
+  if (registerLink) registerLink.addEventListener('click', e => {
+    e.preventDefault();
+    loadContent('register.html');
+  });
+
+  if (loginBtn) loginBtn.addEventListener('click', login);
+  if (logoutBtn) logoutBtn.addEventListener('click', logout);
+});
+
 
 function loadContent(page) {
   fetch(page)
