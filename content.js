@@ -44,9 +44,15 @@ function handleKeyPress(letter) {
         document.getElementById('itemImage').src = `images/${category}/${imageFile}.png`;
 
         // رابط الصوت من مستودع GitHub
-        const audioUrl = `audio/${lang}/${category}/${imageFile}.mp3`;
+        // المسار الصحيح والمؤكد من GitHub
+        const audioUrl = `https://raw.githubusercontent.com/ZuhdiZahdeh/KidCyclopedia/main/audio/${lang}/${category}/${imageFile}.mp3`;
         const audio = new Audio(audioUrl);
-        audio.play();
+        
+        audio.play().then(() => {
+          console.log('تم تشغيل الصوت بنجاح');
+        }).catch(err => {
+          console.error('خطأ في تشغيل الصوت:', err);
+        });
 
         // حفظ سجل الطالب وزيادة النقاط
         const user = firebase.auth().currentUser;
