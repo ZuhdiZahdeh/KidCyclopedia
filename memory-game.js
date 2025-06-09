@@ -20,7 +20,7 @@ function createBoard() {
     card.innerHTML = `
       <div class="card-inner">
         <div class="card-front"></div>
-        <div class="card-back" style="background-image: url('images/cards/${cardName}.png')"></div>
+        <div class="card-back" style="background-image: url('images/${cardName}.png')"></div>
       </div>
     `;
 
