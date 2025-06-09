@@ -1,16 +1,18 @@
 const cardsArray = ['sheep', 'camel', 'cat', 'dog', 'horse', 'bear', 'snake', 'giraffe'];
 
-let gameBoard = document.getElementById('game-board');
-let scoreElement = document.getElementById('score');
 let flipSound = document.getElementById('flip-sound');
-
 let matchedPairs = 0;
 let selectedCards = [];
 let score = 0;
 
 function createBoard() {
+  let gameBoard = document.getElementById('game-board');
+  let scoreElement = document.getElementById('score');
+
   let cards = [...cardsArray, ...cardsArray]; // مضاعفة البطاقات
   cards.sort(() => Math.random() - 0.5);
+
+  gameBoard.innerHTML = ''; // تنظيف اللوحة قبل الإنشاء
 
   cards.forEach(cardName => {
     const card = document.createElement('div');
@@ -27,6 +29,8 @@ function createBoard() {
     card.addEventListener('click', flipCard);
     gameBoard.appendChild(card);
   });
+
+  scoreElement.textContent = score; // إظهار النقاط الأولية
 }
 
 function flipCard() {
@@ -42,6 +46,8 @@ function flipCard() {
 }
 
 function checkMatch() {
+  let scoreElement = document.getElementById('score');
+
   const [card1, card2] = selectedCards;
 
   if (card1.dataset.card === card2.dataset.card) {
@@ -50,7 +56,6 @@ function checkMatch() {
     scoreElement.textContent = score;
     if (matchedPairs === cardsArray.length) {
       alert('ممتاز! أكملت المستوى بنجاح!');
-      // هنا يمكن زيادة الصعوبة (إضافة بطاقات جديدة)
     }
   } else {
     card1.classList.remove('flipped');
@@ -62,5 +67,3 @@ function checkMatch() {
 
   selectedCards = [];
 }
-
-createBoard();
