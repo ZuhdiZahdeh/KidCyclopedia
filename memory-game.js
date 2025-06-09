@@ -1,6 +1,5 @@
 const cardsArray = ['sheep', 'camel', 'cat', 'dog', 'horse', 'bear', 'snake', 'giraffe'];
 
-let flipSound = document.getElementById('flip-sound');
 let matchedPairs = 0;
 let selectedCards = [];
 let score = 0;
@@ -8,6 +7,7 @@ let score = 0;
 function createBoard() {
   const gameBoard = document.getElementById('game-board');
   const scoreElement = document.getElementById('score');
+  const flipSound = document.getElementById('flip-sound');
 
   matchedPairs = 0;
   selectedCards = [];
@@ -39,7 +39,7 @@ function createBoard() {
 function flipCard() {
   if (selectedCards.length < 2 && !this.classList.contains('flipped')) {
     this.classList.add('flipped');
-    flipSound.play();
+    document.getElementById('flip-sound').play();
     selectedCards.push(this);
 
     if (selectedCards.length === 2) {
@@ -50,15 +50,15 @@ function flipCard() {
 
 function checkMatch() {
   const scoreElement = document.getElementById('score');
-
   const [card1, card2] = selectedCards;
 
   if (card1.dataset.card === card2.dataset.card) {
     matchedPairs++;
     score += 10;
     scoreElement.textContent = score;
+
     if (matchedPairs === cardsArray.length) {
-      alert('ممتاز! أكملت المستوى بنجاح!');
+      setTimeout(() => alert('ممتاز! أكملت المستوى بنجاح!'), 300);
     }
   } else {
     card1.classList.remove('flipped');
