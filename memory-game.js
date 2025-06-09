@@ -1,4 +1,4 @@
-const cardsArray = ['sheep', 'camel', 'cat', 'dog', 'horse', 'bear', 'snak', 'giraffe'];
+const cardsArray = ['sheep', 'camel', 'cat', 'dog', 'horse', 'bear', 'snake', 'giraffe'];
 
 let gameBoard = document.getElementById('game-board');
 let scoreElement = document.getElementById('score');
