@@ -45,4 +45,13 @@ document.getElementById('gamesLink').addEventListener('click', function(event) {
     })
     .catch(error => console.error('خطأ في جلب المحتوى:', error));
 });
-  
+//في موقعك الرئيسي (main-content) لاستدعاء اللعبة دون فتح صفحة جديدة:
+document.getElementById('gamesLink').addEventListener('click', function(e){
+  e.preventDefault();
+  fetch('memory-game.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('main-content').innerHTML = html;
+    });
+});
+
