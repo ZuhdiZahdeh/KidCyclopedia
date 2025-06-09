@@ -52,7 +52,6 @@ document.getElementById('gamesLink').addEventListener('click', function(event) {
             .then(html => {
               document.getElementById('main-content').innerHTML = html;
 
-              // الآن قم بتحميل JS الخاص باللعبة وتنفيذ createBoard()
               fetch('memory-game.js')
                 .then(jsRes => jsRes.text())
                 .then(jsCode => {
@@ -60,18 +59,14 @@ document.getElementById('gamesLink').addEventListener('click', function(event) {
                   script.textContent = jsCode;
                   document.body.appendChild(script);
 
-                  // استدعاء الدالة بعد تحميل السكربت مباشرة
-                  if (typeof createBoard === 'function') {
-                    createBoard();
-                  } else {
-                    // في حال عدم وجودها بسبب عدم تزامن تنفيذ السكريبت
-                    setTimeout(() => createBoard(), 100);
-                  }
+                  setTimeout(() => createBoard(), 100);
+
+                  // إخفاء sidebar-left
+                  const sidebarLeft = document.querySelector('.sidebar-left');
+                  if (sidebarLeft) sidebarLeft.style.display = 'none';
                 });
-            })
-            .catch(error => console.error('خطأ في جلب محتوى اللعبة:', error));
+            });
         });
       }
-    })
-    .catch(error => console.error('خطأ في جلب محتوى الألعاب:', error));
+    });
 });
