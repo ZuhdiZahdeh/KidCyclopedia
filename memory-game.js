@@ -6,13 +6,18 @@ let selectedCards = [];
 let score = 0;
 
 function createBoard() {
-  let gameBoard = document.getElementById('game-board');
-  let scoreElement = document.getElementById('score');
+  const gameBoard = document.getElementById('game-board');
+  const scoreElement = document.getElementById('score');
 
-  let cards = [...cardsArray, ...cardsArray]; // مضاعفة البطاقات
+  matchedPairs = 0;
+  selectedCards = [];
+  score = 0;
+  scoreElement.textContent = score;
+
+  let cards = [...cardsArray, ...cardsArray];
   cards.sort(() => Math.random() - 0.5);
 
-  gameBoard.innerHTML = ''; // تنظيف اللوحة قبل الإنشاء
+  gameBoard.innerHTML = '';
 
   cards.forEach(cardName => {
     const card = document.createElement('div');
@@ -29,8 +34,6 @@ function createBoard() {
     card.addEventListener('click', flipCard);
     gameBoard.appendChild(card);
   });
-
-  scoreElement.textContent = score; // إظهار النقاط الأولية
 }
 
 function flipCard() {
@@ -46,7 +49,7 @@ function flipCard() {
 }
 
 function checkMatch() {
-  let scoreElement = document.getElementById('score');
+  const scoreElement = document.getElementById('score');
 
   const [card1, card2] = selectedCards;
 
