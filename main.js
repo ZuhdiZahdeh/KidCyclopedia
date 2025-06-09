@@ -37,21 +37,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //هذا الكود سيقوم بجلب محتوى games.html ووضعه داخل عنصر <main> بدون تحميل صفحة جديدة.
 document.getElementById('gamesLink').addEventListener('click', function(event) {
-  event.preventDefault(); // لمنع الانتقال لصفحة جديدة
+  event.preventDefault();
   fetch('games.html')
     .then(response => response.text())
     .then(data => {
       document.getElementById('main-content').innerHTML = data;
-    })
-    .catch(error => console.error('خطأ في جلب المحتوى:', error));
-});
-//في موقعك الرئيسي (main-content) لاستدعاء اللعبة دون فتح صفحة جديدة:
-document.getElementById('gamesLink').addEventListener('click', function(e){
-  e.preventDefault();
-  fetch('memory-game.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('main-content').innerHTML = html;
-    });
-});
 
+      const memoryGameLink = document.querySelector('a[href="memory-game.html"]');
+      if (memoryGameLink) {
+        memoryGameLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          fetch('memory-game.html')
+            .then(res => res.text())
+            .then(html => {
+              document.getElementById('main-content').innerHTML = html;
+
+              // الآن قم بتحميل JS الخاص باللعبة وتنفيذ createBoard()
+              fetch('memory-game.js')
+                .then(jsRes => jsRes.text())
+                .then(jsCode => {
+                  const script = document.createElement('script');
+                  script.textContent = jsCode;
+                  document.body.appendChild(script);
+
+                  // استدعاء الدالة بعد تحميل السكربت مباشرة
+                  if (typeof createBoard === 'function') {
+                    createBoard();
+                  } else {
+                    // في حال عدم وجودها بسبب عدم تزامن تنفيذ السكريبت
+                    setTimeout(() => createBoard(), 100);
+                  }
+                });
+            })
+            .catch(error => console.error('خطأ في جلب محتوى اللعبة:', error));
+        });
+      }
+    })
+    .catch(error => console.error('خطأ في جلب محتوى الألعاب:', error));
+});
