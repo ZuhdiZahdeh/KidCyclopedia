@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //هذا الكود سيقوم بجلب محتوى games.html ووضعه داخل عنصر <main> بدون تحميل صفحة جديدة.
+
 document.getElementById('gamesLink').addEventListener('click', function(event) {
   event.preventDefault();
   fetch('games.html')
@@ -52,32 +53,31 @@ document.getElementById('gamesLink').addEventListener('click', function(event) {
             .then(html => {
               document.getElementById('main-content').innerHTML = html;
 
-              fetch('memory-game.js')
-                .then(jsRes => jsRes.text())
-                .then(jsCode => {
-                  const script = document.createElement('script');
-                  script.textContent = jsCode;
-                  document.body.appendChild(script);
+              // تحميل الملف script بشكل صحيح لضمان تنفيذه
+              const script = document.createElement('script');
+              script.src = 'memory-game.js';
+              script.onload = function(){
+                createBoard();
+              };
+              document.body.appendChild(script);
 
-                  setTimeout(() => createBoard(), 100);
-
-                  // إخفاء sidebar-left
-                  const sidebarLeft = document.querySelector('.sidebar-left');
-                  if (sidebarLeft) sidebarLeft.style.display = 'none';
-                });
+              // إخفاء sidebar-left
+              const sidebarLeft = document.querySelector('.sidebar-left');
+              if (sidebarLeft) sidebarLeft.style.display = 'none';
             });
         });
       }
     });
 });
 
-// لإعادة إظهار الشريط الجانبي عند الضغط على زر الصفحة الرئيسية
+// لإعادة إظهار sidebar-left عند الضغط على زر الصفحة الرئيسية
+
 document.querySelector('a[href="index.html"]').addEventListener('click', function(event){
   event.preventDefault();
   fetch('index.html')
     .then(res => res.text())
     .then(html => {
       document.documentElement.innerHTML = html;
-      location.reload(); // تحديث الصفحة بالكامل لإعادة ضبط العرض
+      location.reload();
     });
 });
