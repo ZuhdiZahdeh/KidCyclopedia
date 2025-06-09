@@ -34,3 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+//هذا الكود سيقوم بجلب محتوى games.html ووضعه داخل عنصر <main> بدون تحميل صفحة جديدة.
+document.getElementById('gamesLink').addEventListener('click', function(event) {
+  event.preventDefault(); // لمنع الانتقال لصفحة جديدة
+  fetch('games.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('main-content').innerHTML = data;
+    })
+    .catch(error => console.error('خطأ في جلب المحتوى:', error));
+});
+  
