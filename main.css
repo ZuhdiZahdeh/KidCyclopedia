@@ -21,6 +21,29 @@ body {
   margin: auto;
 }
 
+.content {
+  grid-area: content;
+  background: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;      /* لضمان اتساع المحتوى بشكل مناسب */
+  min-width: 0;     /* لتجنب التمدد الزائد */
+  box-sizing: border-box; /* لتجنب تداخل الهوامش والحواف */
+  overflow: hidden; /* لمنع خروج المحتوى عن حدوده */
+}
+
+.sidebar-left, .sidebar-right {
+  min-width: 200px;
+  max-width: 200px;
+}
+.sidebar-left {
+  grid-area: left;
+  background: #3498db;
+  padding: 15px;
+  border-radius: 8px;
+}
+
 /* Header styles */
 .header {
   grid-area: header;
@@ -41,12 +64,7 @@ body {
 }
 
 /* Left sidebar styles */
-.sidebar-left {
-  grid-area: left;
-  background: #3498db;
-  padding: 15px;
-  border-radius: 8px;
-}
+
 
 .sidebar-left button {
   display: block;
