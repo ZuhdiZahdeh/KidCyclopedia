@@ -1,41 +1,38 @@
-const images = [
-  'apple', 'cat', 'dog', 'banana', 'car', 'pen'
-];
+const cardsArray = ['apple', 'banana', 'cat', 'dog', 'car', 'pen', 'sun', 'moon'];
 
-const gameContainer = document.getElementById('memory-game');
+let gameBoard = document.getElementById('game-board');
+let scoreElement = document.getElementById('score');
+let flipSound = document.getElementById('flip-sound');
 
-let cards = [];
 let matchedPairs = 0;
 let selectedCards = [];
+let score = 0;
 
-// Duplicate and shuffle cards
-function createCards() {
-  cards = [...images, ...images];
+function createBoard() {
+  let cards = [...cardsArray, ...cardsArray]; // مضاعفة البطاقات
   cards.sort(() => Math.random() - 0.5);
 
-  cards.forEach(card => {
-    const cardElement = document.createElement('div');
-    cardElement.classList.add('card');
-    cardElement.dataset.name = card;
+  cards.forEach(cardName => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.dataset.card = cardName;
 
-    const front = document.createElement('div');
-    front.classList.add('front');
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-front"></div>
+        <div class="card-back" style="background-image: url('images/cards/${cardName}.png')"></div>
+      </div>
+    `;
 
-    const back = document.createElement('div');
-    back.classList.add('back');
-    back.textContent = '?';
-
-    cardElement.appendChild(front);
-    cardElement.appendChild(back);
-    gameContainer.appendChild(cardElement);
-
-    cardElement.addEventListener('click', flipCard);
+    card.addEventListener('click', flipCard);
+    gameBoard.appendChild(card);
   });
 }
 
 function flipCard() {
   if (selectedCards.length < 2 && !this.classList.contains('flipped')) {
     this.classList.add('flipped');
+    flipSound.play();
     selectedCards.push(this);
 
     if (selectedCards.length === 2) {
@@ -45,19 +42,25 @@ function flipCard() {
 }
 
 function checkMatch() {
-  const [first, second] = selectedCards;
-  
-  if (first.dataset.name === second.dataset.name) {
+  const [card1, card2] = selectedCards;
+
+  if (card1.dataset.card === card2.dataset.card) {
     matchedPairs++;
-    selectedCards = [];
-    if (matchedPairs === images.length) {
-      alert('أحسنت! أكملت اللعبة بنجاح.');
+    score += 10;
+    scoreElement.textContent = score;
+    if (matchedPairs === cardsArray.length) {
+      alert('ممتاز! أكملت المستوى بنجاح!');
+      // هنا يمكن زيادة الصعوبة (إضافة بطاقات جديدة)
     }
   } else {
-    first.classList.remove('flipped');
-    second.classList.remove('flipped');
-    selectedCards = [];
+    card1.classList.remove('flipped');
+    card2.classList.remove('flipped');
+    score -= 2;
+    if (score < 0) score = 0;
+    scoreElement.textContent = score;
   }
+
+  selectedCards = [];
 }
 
-createCards();
+createBoard();
