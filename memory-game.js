@@ -1,4 +1,4 @@
-const cardsArray = ['apple', 'banana', 'cat', 'dog', 'car', 'pen', 'sun', 'moon'];
+const cardsArray = ['sheep', 'camel', 'cat', 'dog', 'horse', 'bear', 'snak', 'giraffe'];
 
 let gameBoard = document.getElementById('game-board');
 let scoreElement = document.getElementById('score');
@@ -20,7 +20,7 @@ function createBoard() {
     card.innerHTML = `
       <div class="card-inner">
         <div class="card-front"></div>
-        <div class="card-back" style="background-image: url('images/${cardName}.png')"></div>
+        <div class="card-back" style="background-image: url('images/animals/${cardName}.png')"></div>
       </div>
     `;
 
