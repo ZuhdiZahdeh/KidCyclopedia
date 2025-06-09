@@ -1,25 +1,10 @@
-body {
+.game-container {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(135deg, #6ec6ff, #ff9cee);
   text-align: center;
   color: #fff;
-  margin: 0;
-  padding: 0;
-}
-
-.game-container {
-  max-width: 800px;
-  margin: 20px auto;
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.score {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .game-board {
@@ -31,7 +16,7 @@ h1 {
 
 .card {
   width: 100%;
-  padding-bottom: 100%; /* مربع مثالي */
+  padding-bottom: 100%;
   position: relative;
   cursor: pointer;
   perspective: 1000px;
@@ -67,4 +52,9 @@ h1 {
 .card-back {
   transform: rotateY(180deg);
   background-size: cover;
+}
+
+.score {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
 }
