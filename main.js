@@ -70,3 +70,14 @@ document.getElementById('gamesLink').addEventListener('click', function(event) {
       }
     });
 });
+
+// لإعادة إظهار الشريط الجانبي عند الضغط على زر الصفحة الرئيسية
+document.querySelector('a[href="index.html"]').addEventListener('click', function(event){
+  event.preventDefault();
+  fetch('index.html')
+    .then(res => res.text())
+    .then(html => {
+      document.documentElement.innerHTML = html;
+      location.reload(); // تحديث الصفحة بالكامل لإعادة ضبط العرض
+    });
+});
