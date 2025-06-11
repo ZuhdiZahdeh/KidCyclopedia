@@ -21,7 +21,6 @@ body {
   max-width: 96%;
   margin: auto;
 }
-
 .content {
   grid-area: content;
   background: #ecf0f1;
