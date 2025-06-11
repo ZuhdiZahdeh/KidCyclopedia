@@ -32,7 +32,7 @@ async function createBoard(category = 'animals', activityType = 'words', languag
     card.innerHTML = `
       <div class="card-inner">
         <div class="card-front"></div>
-        <div class="card-back" style="background-image:url('${cardData.imageUrl}')"></div>
+        <div class="card-back" style="background-image:url('images/animals/${cardData.imageUrl}.png')"></div>
       </div>
     `;
 
