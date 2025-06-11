@@ -11,24 +11,92 @@
 }
 
 /* Tablet */
-/* للأجهزة اللوحية */
-@media (max-width: 768px) {
+/* تعديلات لتصميم متجاوب مع الأجهزة المحمولة والتابلت */
+
+@media screen and (max-width: 768px) {
   .container {
-    grid-template-areas:
-      "header header"
-      "sidebar content"
-      "aside aside"
-      "footer footer";
-    grid-template-columns: 1fr 2fr;
-  }
-
-  .nav-menu {
-    display: none;
-    flex-direction: column;
-  }
-
-  .nav-menu.active {
     display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .sidebar-left,
+  .sidebar-right {
+    order: 2; /* إظهار الأقسام الجانبية في الأسفل */
+    width: 100%;
+    max-width: none;
+    margin-top: 10px;
+  }
+
+  .content {
+    order: 1;
+    width: 100%;
+    padding: 5px;
+    overflow: visible; /* تجنب إخفاء العناصر المهمة */
+  }
+
+  .keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .key {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .card img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .game-container {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+
+  .game-board {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 5px;
+  }
+
+  .card {
+    height: 80px;
+  }
+}
+
+/* تعديلات إضافية لأجهزة التابلت العمودية (portrait) */
+
+@media screen and (min-width: 600px) and (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "content"
+      "left"
+      "right"
+      "footer";
+  }
+
+  .top-nav a {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
+  .keyboard .key {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .card img {
+    max-height: 200px;
+    object-fit: cover;
   }
 }
 
