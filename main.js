@@ -1,5 +1,4 @@
 // تحديث JavaScript (main.js) لتشغيل القائمة بوضوح:
-
 function loadPage(page) {
   const mainContent = document.getElementById('main-content');
   fetch(`${page}.html`)
