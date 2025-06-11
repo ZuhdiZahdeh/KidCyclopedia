@@ -10,7 +10,6 @@ async function createBoard(category = 'animals', activityType = 'words', languag
 
   const snapshot = await firebase.firestore()
     .collection('memoryCards').doc(category).collection('cards').limit(level * 4).get();
-
   const cardsArray = [];
   snapshot.forEach(doc => {
     const data = doc.data();
