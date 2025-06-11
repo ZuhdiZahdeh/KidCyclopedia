@@ -4,7 +4,6 @@
   align-items: center;
   padding: 15px;
 }
-
 .game-board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
