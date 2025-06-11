@@ -1,5 +1,4 @@
 // الملف record.js (تسجيل الصوت ورفعه)
-
 let recorder, audioChunks = [];
 
 const startBtn = document.getElementById('startRecord');
