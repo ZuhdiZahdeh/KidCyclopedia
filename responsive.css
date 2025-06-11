@@ -12,6 +12,44 @@
 
 /* Tablet */
 /* تعديلات لتصميم متجاوب مع الأجهزة المحمولة والتابلت */
+/* Responsive adjustments for tablets and mobile devices */
+@media screen and (max-width: 900px) {
+  .container {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "content"
+      "sidebar-right"
+      "sidebar-left"
+      "footer";
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 5px;
+  }
+
+  .content {
+    grid-area: content;
+    order: 1; /* المحتوى الرئيسي يظهر بالأعلى */
+    padding: 10px;
+  }
+
+  .sidebar-right {
+    grid-area: sidebar-right;
+    order: 2; /* القسم الجانبي الأيمن يأتي تحت المحتوى */
+    padding: 10px;
+  }
+
+  .sidebar-left {
+    grid-area: sidebar-left;
+    order: 3; /* القسم الجانبي الأيسر يظهر أسفل الجميع */
+    padding: 10px;
+  }
+
+  .header, .footer {
+    width: 100%;
+    padding: 10px;
+  }
+}
 
 @media screen and (max-width: 768px) {
   .container {
