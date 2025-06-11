@@ -20,7 +20,6 @@ function login() {
     .then(() => alert('تم تسجيل الدخول بنجاح!'))
     .catch(err => alert('خطأ في تسجيل الدخول: ' + err.message));
 }
-
 function logout() {
 firebase.auth().signOut()
     .then(() => alert('تم تسجيل الخروج بنجاح!'))
