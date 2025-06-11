@@ -1,5 +1,4 @@
 // الملف register.js (تسجيل الطالب مع التحقق من البيانات)
-
 const saveBtn = document.getElementById('saveStudentBtn');
 if (saveBtn) saveBtn.onclick = function() {
   const username = document.getElementById('studentName').value.trim();
