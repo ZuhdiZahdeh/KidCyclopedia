@@ -1,0 +1,199 @@
+ /*تحديث ملف CSS (main.css) بشكل متوافق مع HTML أعلاه: */
+/* Combined and Final CSS: style-main.css */
+
+/* Global Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Amiri Quran', Arial, sans-serif;
+}
+
+body {
+  background-color: #f2f2f2;
+}
+
+/* Container Grid Layout */
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "sidebar-left content sidebar-right"
+    "footer footer footer";
+  grid-template-columns: 200px 1fr 200px;
+  gap: 15px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  grid-area: header;
+  background-color: #8e44ad;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+.top-nav a {
+  color: #000;
+  background-color: #fff;
+  padding: 8px 15px;
+  margin: 0 5px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Sidebars */
+.sidebar-left, .sidebar-right {
+  padding: 15px;
+  border-radius: 8px;
+  display: block;
+}
+
+.sidebar-left {
+  grid-area: sidebar-left;
+  background-color: #3498db;
+}
+
+.sidebar-right {
+  grid-area: sidebar-right;
+  background-color: #1abc9c;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.sidebar-left button {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Leaderboard */
+.leaderboard {
+  background-color: #2980b9;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.leaderboard ul {
+  list-style: none;
+}
+
+.leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+/* Main Content */
+.content {
+  grid-area: content;
+  background-color: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.card img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.key {
+  background-color: #e67e22;
+  color: #fff;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Footer */
+.footer {
+  grid-area: footer;
+  background-color: #34495e;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .container {
+    grid-template-areas:
+      "header"
+      "content"
+      "sidebar-right"
+      "sidebar-left"
+      "footer";
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  .sidebar-left, .sidebar-right {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .card img {
+    max-height: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  .sidebar-left, .sidebar-right {
+    order: 2;
+  }
+
+  .content {
+    order: 1;
+  }
+
+  .key {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .card img {
+    max-height: 120px;
+  }
+}
+
