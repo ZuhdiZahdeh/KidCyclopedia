@@ -15,7 +15,7 @@
 .card {
   perspective: 1000px;
   cursor: pointer;
-  height: 120px;
+  height: 400px;
 }
 
 .card-inner {
