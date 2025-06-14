@@ -1,83 +1,102 @@
-async function createBoard(category, activityType, language, level) {
-  const gameBoard = document.getElementById('game-board');
-  const scoreElement = document.getElementById('score');
-  const celebration = document.getElementById('celebration');
-  
-  let matchedPairs = 0, selectedCards = [], score = 0;
-  scoreElement.textContent = score;
-  celebration.style.display = 'none';
+const languageSelect = document.getElementById("language");
+const categorySelect = document.getElementById("category");
+const keyboard = document.getElementById("keyboard");
+const itemImage = document.getElementById("itemImage");
+const itemWord = document.getElementById("itemWord");
 
-  const snapshot = await firebase.firestore()
-    .collection('memoryCards').doc(category).collection('cards').limit(level * 4).get();
+const createKeyboard = async () => {
+  keyboard.innerHTML = "";
+  itemWord.textContent = "اختر حرفًا أو رقمًا";
+  itemImage.src = "";
 
-  const cardsArray = [];
-  snapshot.forEach(doc => {
+  const lang = languageSelect.value;
+  const category = categorySelect.value;
+
+  try {
+    const doc = await db.collection("words").doc(lang).get();
+    if (!doc.exists) {
+      keyboard.innerHTML = "<p>لا توجد بيانات متاحة.</p>";
+      return;
+    }
+
     const data = doc.data();
-    cardsArray.push({
-      content: data[activityType][language],
-      imageUrl: data.imageUrl
+    const letterMap = data[category];
+
+    if (!letterMap) {
+      keyboard.innerHTML = "<p>لا توجد كلمات لهذه الفئة.</p>";
+      return;
+    }
+
+    const availableLetters = Object.keys(letterMap);
+
+    availableLetters.forEach(letter => {
+      const btn = document.createElement("button");
+      btn.textContent = letter;
+      btn.onclick = () => showItem(letter);
+      keyboard.appendChild(btn);
     });
-  });
 
-  let cards = [...cardsArray, ...cardsArray];
-  cards.sort(() => Math.random() - 0.5);
-  gameBoard.innerHTML = '';
-
-  cards.forEach(cardData => {
-    const card = document.createElement('div');
-    card.classList.add('memory-game-card');
-    card.dataset.card = cardData.content;
-
-    card.innerHTML = `
-      <div class="game-card-inner">
-        <div class="game-card-front"></div>
-        <div class="game-card-back" style="background-image:url('${cardData.imageUrl}')">
-          <span class="card-text">${cardData.content}</span>
-        </div>
-      </div>
-    `;
-
-    card.addEventListener('click', flipCard);
-    gameBoard.appendChild(card);
-  });
-
-  function flipCard() {
-    if (selectedCards.length < 2 && !this.classList.contains('flipped')) {
-      this.classList.add('flipped');
-      selectedCards.push(this);
-      if (selectedCards.length === 2) setTimeout(checkMatch, 800);
-    }
+  } catch (error) {
+    console.error("حدث خطأ أثناء جلب الحروف:", error);
+    keyboard.innerHTML = "<p>فشل تحميل لوحة المفاتيح.</p>";
   }
-
-  function checkMatch() {
-    const [card1, card2] = selectedCards;
-    if (card1.dataset.card === card2.dataset.card) {
-      matchedPairs++;
-      score += 10;
-      scoreElement.textContent = score;
-      if (matchedPairs === cardsArray.length) {
-        celebration.style.display = 'block';
-        document.getElementById('clapSound').play();
-      }
-    } else {
-      card1.classList.remove('flipped');
-      card2.classList.remove('flipped');
-      score = Math.max(score - 2, 0);
-      scoreElement.textContent = score;
-    }
-    selectedCards = [];
-  }
-}
-
-document.getElementById('startGameBtn').onclick = function () {
-  const category = document.getElementById('categorySelect').value;
-  const activityType = document.getElementById('activityType').value;
-  const language = document.getElementById('languageSelect').value;
-  const level = parseInt(document.getElementById('levelSelect').value, 10);
-  
-  const gameBoard = document.getElementById('game-board');
-  gameBoard.className = 'game-board'; // reset class
-  gameBoard.classList.add(`level-${level}`); // apply class based on level
-  
-  createBoard(category, activityType, language, level);
 };
+
+const playSoundWithFallback = (path, fallbackPath) => {
+  const audio = new Audio(path);
+  audio.onerror = () => {
+    const fallback = new Audio(fallbackPath);
+    fallback.play();
+  };
+  audio.play();
+};
+
+const showItem = async (letter) => {
+  const lang = languageSelect.value;
+  const category = categorySelect.value;
+
+  try {
+    const doc = await db.collection("words").doc(lang).get();
+    const data = doc.data();
+
+    const word = data[category]?.[letter];
+    const imageFile = data.images?.[category]?.[letter];
+
+    if (word && imageFile) {
+      itemWord.textContent = word;
+
+      const imgPath = `images/${category}/${imageFile.toLowerCase()}.png`;
+      itemImage.onerror = () => {
+        itemImage.src = 'images/placeholder.png';
+      };
+      itemImage.src = imgPath;
+
+      const soundPath = `audio/${lang}/${category}/${imageFile.toLowerCase()}.mp3`;
+      const fallbackSound = `audio/${lang}/${category}/placeholder.mp3`;
+      playSoundWithFallback(soundPath, fallbackSound);
+
+    } else {
+      itemWord.textContent = "لا توجد كلمة لهذا الحرف.";
+      itemImage.src = "";
+    }
+
+  } catch (error) {
+    console.error("حدث خطأ أثناء جلب البيانات:", error);
+    itemWord.textContent = "حدث خطأ أثناء تحميل الكلمة.";
+  }
+};
+
+// ✅ لتشغيل صوت التصفيق:
+const playClapSound = () => {
+  playSoundWithFallback("audio/clap.mp3", "audio/flip.mp3");
+};
+
+// ✅ لتشغيل صوت قلب البطاقة:
+const playFlipSound = () => {
+  playSoundWithFallback("audio/flip.mp3", "audio/clap.mp3");
+};
+
+languageSelect.onchange = createKeyboard;
+categorySelect.onchange = createKeyboard;
+
+createKeyboard();
