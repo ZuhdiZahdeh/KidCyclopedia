@@ -1,0 +1,20 @@
+/* محتوى ملف leaderboard-page.css - تنسيق صفحة الفائزين */
+
+.leaderboard {
+  background-color: #2980b9;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.leaderboard ul {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+ 

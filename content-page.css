@@ -1,0 +1,49 @@
+.content-main {
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+}
+
+.content-card {
+  background: #f0f0f0;
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.itemDisplay img {
+  width: 250px;
+  height: auto;
+  margin: 15px auto;
+  border-radius: 15px;
+}
+
+.word-card {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+#keyboard button {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+#keyboard button:hover {
+  background-color: #45a049;
+}

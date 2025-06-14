@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>صفحة المحتوى</title>
+  <link rel="stylesheet" href="content-page.css">
+</head>
+<body>
+  <main class="content-main">
+    <div class="content-card">
+      <select id="language">
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+        <option value="he">עברית</option>
+      </select>
+      <select id="category">
+        <option value="animals">حيوانات</option>
+        <option value="fruits">فواكه</option>
+        <option value="objects">أشياء</option>
+      </select>
+
+      <div class="itemDisplay">
+        <img id="itemImage" src="" alt="صورة للكلمة">
+      </div>
+
+      <div class="word-card" id="itemWord">اختر حرفًا أو رقمًا</div>
+
+      <div id="keyboard"></div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="content-page.js"></script>
+</body>
+</html>

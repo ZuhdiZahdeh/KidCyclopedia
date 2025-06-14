@@ -1,0 +1,17 @@
+/* محتوى ملف user-history-page.css - تنسيق سجل زيارات الطالب */
+
+.sidebar-right {
+  background-color: #1abc9c;
+  padding: 15px;
+  border-radius: 8px;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+#viewedWordsList li {
+  background: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+} 

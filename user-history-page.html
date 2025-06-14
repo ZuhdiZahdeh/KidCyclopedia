@@ -1,0 +1,53 @@
+<!-- record.html (تسجيل الصوت) -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الصوت | موسوعة الأطفال</title>
+<link rel="stylesheet" href="user-history-page.css">
+</head>
+  
+<body>
+  <header>
+    <button class="menu-btn">☰</button>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="register.html">تسجيل طالب</a></li>
+        <li><a href="record.html">تسجيل الصوت</a></li>
+        <li><a href="content.html">المحتوى</a></li>
+        <li><a href="leaderboard.html">أفضل الطلاب</a></li>
+      </ul>
+    </nav>
+    <h1>🎤 تسجيل صوت الطالب 🎙️</h1>
+  </header>
+
+  <main class="container">
+    <section class="audio-record">
+      <select id="recLanguage">
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+        <option value="he">עברית</option>
+      </select>
+      <select id="recCategory">
+        <option value="fruits">فواكه</option>
+        <option value="animals">حيوانات</option>
+        <option value="objects">أشياء</option>
+      </select>
+      <select id="recKeyboardType">
+        <option value="letters">حروف</option>
+        <option value="numbers">أرقام</option>
+      </select>
+      <input type="text" id="wordToRecord" placeholder="الكلمة المراد تسجيلها">
+      <button id="startRecord">ابدأ التسجيل 🎙️</button>
+      <button id="stopRecord" disabled>أوقف التسجيل ⏹️</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>جميع الحقوق محفوظة © موسوعة الأطفال 2025</p>
+  </footer>
+<script src="user-history.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!-- register-page.html (تسجيل طالب جديد) -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل طالب جديد</title>
+  <link rel="stylesheet" href="registration-page.css">
+</head>
+<body>
+  <main class="container">
+    <section class="student-form">
+      <input id="studentName" placeholder="اسم الطالب">
+      <input id="studentIdNumber" placeholder="رقم الهوية (9 أرقام)">
+      <input id="studentEmail" placeholder="البريد الإلكتروني">
+      <input id="studentPassword" placeholder="كلمة المرور">
+      <input id="studentNumber" placeholder="رقم الطالب الفريد">
+      <input id="studentAge" placeholder="العمر" type="number">
+
+      <select id="studentGender">
+        <option value="" disabled selected>اختر الجنس</option>
+        <option value="male">ذكر</option>
+        <option value="female">أنثى</option>
+      </select>
+
+      <button id="saveStudentBtn">حفظ البيانات</button>
+    </section>
+  </main>
+  <script src="register-page.js"></script>
+</body>
+</html>

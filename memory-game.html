@@ -1,40 +1,61 @@
+<!-- memory-game.html (لعبة الذاكرة) -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لعبة بطاقات الذاكرة</title>
+  <link rel="stylesheet" href="memory-game.css">
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-storage-compat.js"></script>
+
+  <!-- Firebase Config -->
+  <script src="firebase-config.js"></script>
+</head>
+
+<body>
 <div class="game-container">
   <h1>لعبة بطاقات الذاكرة</h1>
+
+  <div class="game-settings">
+    <select id="categorySelect">
+      <option value="animals">حيوانات</option>
+      <option value="fruits">فواكه</option>
+      <option value="objects">أشياء</option>
+    </select>
+
+    <select id="activityType">
+      <option value="words">كلمة مع صورة</option>
+      <option value="letters">حرف مع صورة</option>
+    </select>
+
+    <select id="languageSelect">
+      <option value="ar">عربي</option>
+      <option value="en">إنجليزي</option>
+      <option value="he">عبري</option>
+    </select>
+
+    <select id="levelSelect">
+      <option value="1">المستوى 1 (8 بطاقات)</option>
+      <option value="2">المستوى 2 (12 بطاقة)</option>
+      <option value="3">المستوى 3 (16 بطاقة)</option>
+    </select>
+
+    <button id="startGameBtn">ابدأ اللعب</button>
+  </div>
+
   <div class="score">النقاط: <span id="score">0</span></div>
-  
-  <select id="categorySelect">
-    <option value="animals">حيوانات</option>
-    <option value="fruits">فواكه</option>
-    <option value="objects">أشياء</option>
-  </select>
-
-  <select id="activityType">
-    <option value="words">كلمة مع صورة</option>
-    <option value="letters">حرف مع صورة</option>
-  </select>
-  <select id="languageSelect">
-    <option value="ar">عربي</option>
-    <option value="en">إنجليزي</option>
-    <option value="he">عبري</option>
-  </select>
-
-  <select id="levelSelect">
-    <option value="1">المستوى 1</option>
-    <option value="2">المستوى 2</option>
-    <option value="3">المستوى 3</option>
-  </select>
-
-  <button id="startGameBtn">ابدأ اللعب</button>
   <div id="game-board" class="game-board"></div>
-  <audio id="flip-sound" src="audio/flip.mp3"></audio>
+
+  <div id="celebration" style="display:none;">
+    <h2>🎉 تهانينا، لقد فزت! 🎉</h2>
+    <audio id="clapSound" src="audio/clap.mp3"></audio>
+  </div>
 </div>
 
-<script>
-document.getElementById('startGameBtn').onclick = function() {
-  const category = document.getElementById('categorySelect').value;
-  const activityType = document.getElementById('activityType').value;
-  const language = document.getElementById('languageSelect').value;
-  const level = parseInt(document.getElementById('levelSelect').value);
-  createBoard(category, activityType, language, level);
-};
-</script>
+<script src="memory-game.js"></script>
+</body>
+</html>

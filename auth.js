@@ -4,7 +4,6 @@
   const logoutBtn = document.getElementById('logoutBtn');
   const welcomeMessage = document.getElementById('welcomeMessage');
  
-
   if (user) {
     const loginContainer = document.querySelector('.login-container');
     if (loginContainer) loginContainer.style.display = 'none';
@@ -28,8 +27,8 @@
  // تسجيل الدخول
 const loginBtnEl = document.getElementById('loginBtn');
 if (loginBtnEl) loginBtnEl.onclick = function() {
-   const email = document.getElementById('email').value;
-   const password = document.getElementById('password').value;
+   const email = document.getElementById('loginEmail').value;
+   const password = document.getElementById('loginPassword').value;
  
    firebase.auth().signInWithEmailAndPassword(email, password)
      .then(() => alert('تم تسجيل الدخول بنجاح!'))

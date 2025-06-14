@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول</title>
+  <link rel="stylesheet" href="registration-page.css">
+</head>
+<body>
+
+  <main class="container">
+    <section class="login-container">
+      <h2>تسجيل الدخول</h2>
+      <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" required>
+      <input type="password" id="loginPassword" placeholder="كلمة المرور" required>
+      <button id="loginBtn">تسجيل الدخول</button>
+      <p id="loginMessage"></p>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+  <script>
+    document.getElementById('loginBtn').onclick = function () {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const loginMessage = document.getElementById('loginMessage');
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          loginMessage.textContent = 'تم تسجيل الدخول بنجاح!';
+          loginMessage.style.color = 'green';
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch(error => {
+          loginMessage.textContent = 'خطأ في البريد الإلكتروني أو كلمة المرور';
+          loginMessage.style.color = 'red';
+          console.error("Login Error:", error);
+        });
+    };
+  </script>
+
+</body>
+</html>
+ 

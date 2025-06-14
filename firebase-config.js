@@ -1,4 +1,3 @@
-// firebase-config.js
 const firebaseConfig = {
   apiKey: "AIzaSyATXdsB_HxP3xY60qsZ6kAydC9zdQGDTaU",
   authDomain: "encyclopedialphabet.firebaseapp.com",
@@ -8,10 +7,7 @@ const firebaseConfig = {
   appId: "1:225712774247:android:a5c82fbbcd341b137c08c2"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
-// تعريف قواعد البيانات والتخزين بوضوح
 const db = firebase.firestore();
+const auth = firebase.auth();
 const storage = firebase.storage();
-

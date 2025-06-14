@@ -1,68 +1,52 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- إضافة علامات لمنع التخزين المؤقت (Cache Control) في HTML -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <title>موسوعة الأطفال التعليمية</title>
-  <link rel="stylesheet" href="style-main.css">
-  <link rel="stylesheet" href="header.css">
-  <link rel="stylesheet" href="footer.css">
-  <link rel="stylesheet" href="responsive.css">
-  <link rel="stylesheet" href="games.css">
-  <link rel="stylesheet" href="memory-game.css">
-
+  <link rel="stylesheet" href="home-page.css">
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-storage-compat.js"></script>
 </head>
 <body>
   <div class="container">
     <header class="header">
-    <nav class="top-nav">
-      <a href="index.html">الرئيسية</a>
-      <a href="#" id="contentLink">المحتوى</a>
-      <a href="#" id="gamesLink">اذهب إلى قسم الألعاب</a>
-      <a href="#" id="registerLink">تسجيل جديد</a>
-    </nav>
+      <nav class="top-nav">
+        <a href="register-page.html">تسجيل جديد</a>
+        <a href="games-menu.html">اذهب إلى قسم الألعاب</a>
+        <a href="content-page.html">المحتوى</a>
+        <a href="index.html">الرئيسية</a>
+      </nav>
       <h1>🌍 موسوعة الأطفال التعليمية 🎮</h1>
     </header>
 
-    <aside class="sidebar-left">
-      <button id="loginBtn">تسجيل الدخول</button>
-      <button id="logoutBtn">تسجيل الخروج</button>
-      <div class="leaderboard">
-        <h3>قائمة الأفضل</h3>
-        <ul id="leaderboard"></ul>
-      </div>
-    </aside>
-
-    <main class="content" id="main-content">
+    <main class="content-main">
+      <div id="welcomeMessage"><h2>👋 أهلاً بك يا رفيق نضال رفيق ابوسنينه! 🎉</h2></div>
       <h2>مرحباً بك في موسوعة الأطفال!</h2>
-      <p>اختر من القائمة لبدء التفاعل.</p>
-      <p>موسوعة الأطفال التفاعلية منصّة تعليمية مبتكرة للأطفال (1-10 سنوات)، تُعلّم باللعب والصور والأصوات بثلاث لغات (عربية، إنجليزية، عبرية)، مع لوحة مفاتيح ملونة وجذابة. تتيح تسجيل الصوت وحفظ الكلمات وزيادة النقاط، وتعزّز التفاعل والتنافس من خلال لوحة شرف مميزة وسهولة استخدام تناسب أعمارهم.</p>
+      <h3>اختر من القائمة لبدء التفاعل.</h3>
+      <div id="game-content"></div> <!-- ضع اللعبة هنا -->
     </main>
 
     <aside class="sidebar-right">
-      <h3>سجل الكلمات المستعرضة</h3>
-      <ul id="viewedWordsList"></ul>
+      <div class="sidebar-right-top">
+        <button id="loginBtn">تسجيل الدخول</button>
+        <button id="logoutBtn">تسجيل الخروج</button>
+        <button id="leaderboardBtn">قائمة الأفضل</button>
+      </div>
+      <div class="sidebar-right-middle">
+        <h3>سجل الكلمات المستعرضة</h3>
+        <ul id="viewedWordsList"></ul>
+      </div>
     </aside>
 
     <footer class="footer">
       جميع الحقوق محفوظة © موسوعة الأطفال 2025
     </footer>
+
+    <script src="firebase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="main.js"></script>
   </div>
-
-<script defer src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
-  <script defer src="script.js"></script>
-  <script defer src="main.js"></script>
-  <script defer src="content.js"></script>
-  <script defer src="memory-game.js"></script>
-  <script defer src="register.js"></script>
-
 </body>
 </html>
- 

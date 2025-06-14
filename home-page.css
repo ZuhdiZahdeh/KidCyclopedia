@@ -1,0 +1,192 @@
+/* home-page.css - تنسيقات الصفحة الرئيسية بوضوح وكمال */
+
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Amiri Quran', Arial, sans-serif;
+}
+
+body {
+  background-color: #f2f2f2;
+}
+
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "content-main content-main sidebar-right"
+    "footer footer footer";
+  grid-template-columns: 1fr 1fr 250px;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 15px;
+}
+
+/* Header */
+.header {
+  direction: rtl;
+  grid-area: header;
+  background-color: #8e44ad;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.top-nav a {
+  background-color: #fff;
+  padding: 8px 10px;
+  margin: 0 5px;
+  color: #000;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+/* Main Content */
+.content-main {
+  text-align: center;
+  grid-area: content-main;
+  background-color: #d0e6f6;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+#welcomeMessage {
+  text-align: center;
+  font-size: 1.2em;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+/* Sidebar Right */
+.sidebar-right {
+  grid-area: sidebar-right;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-right-top, .sidebar-right-middle {
+  background-color: #1abc9c;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.sidebar-right-top button {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 10px;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sidebar-right-middle ul {
+  list-style: none;
+}
+
+.sidebar-right-middle li {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+/* Footer */
+.footer {
+  grid-area: footer;
+  background-color: #34495e;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .container {
+    grid-template-areas:
+      "header"
+      "content-main"
+      "sidebar-right"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-right {
+    flex-direction: column;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  .sidebar-left, .sidebar-right {
+    order: 2;
+  }
+
+  .content {
+    order: 1;
+  }
+}
+
+/* Responsive adjustments for screens 600px and below */
+@media (max-width: 600px) {
+  .container {
+    display: grid;
+    grid-template-areas:
+      "header"
+      "content-main"
+      "sidebar-right-top"
+      "sidebar-right-middle"
+      "footer";
+    grid-template-columns: 1fr;
+    padding: 5px;
+  }
+
+  .sidebar-right {
+    display: contents; /* يسمح للأقسام الجانبية بأخذ مكانها في grid مباشرة */
+  }
+
+  .sidebar-right-top,
+  .sidebar-right-middle {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .header, .footer {
+    padding: 10px;
+  }
+
+  .top-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .top-nav a {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .sidebar-right-top button {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .content-main {
+    padding: 10px;
+  }
+}
